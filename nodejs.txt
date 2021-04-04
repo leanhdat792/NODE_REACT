@@ -1,0 +1,30 @@
+160. Reactjs trên frontend đổ ra giao diện thế nào.
+  - Tạo giao diện frontend.
+  - Lấy dữ liệu đỗ ra frontend.
+    + Tạo thiết kế html.
+    + Chuyển html sang component.
+    + Truyền dữ liệu giữa các component.
+    + 161. Lấy dữ liệu từ api (Kết nối Nodejs và Reactjs thông qua axios).
+      - Cài đặt module axios.
+        + Hỗ trợ việc gửi nhận thông tin get/post giữa node và react.
+      - Send dữ liệu phía API (nodejs) sử dụng res.send()
+      - Thiết lập kết nối giữa backend và frontend.
+    + 162. Hứng dữ liệu từ API bên trong Reactjs.
+      - Lấy được dữ liệu thì lưu dữ liệu này vào state.
+      - Sử dụng hàm Will Mount để lấy dữ liệu ngay từ đầu.
+    + 163. Gửi dữ liệu từ Reactjs lên Nodejs.
+      - Thực hiện công việc thêm mới vào postgreSQL.
+      - Các bước làm
+        + 1. Trong reactjs tạo form nhập thông tin: tên, giá và ảnh sản phẩm
+        + 2. Gửi thông tin về nodejs
+        + 3. Nodejs nhận được, kết nối với postgreSQL, insert dữ liệu vào trong CSDL.
+      - Chậm hơn
+        + 1. Sử dụng nodejs thuần, thêm mới dữ liệu vào postgreSQL.
+          - Test trước trên nodejs để insert dữ liệu trơn tru.
+          - Sau đó mới thay vì dùng form của nodejs thì dùng form reactjs.
+            + Dùng Axios.
+        + 2. Thay vì lấy dữ liệu từ nodejs thuần, thêm mới dữ liệu vào postgreSQL.
+      - Làm theo kiểu chắc
+        + 1. Tạo giao diện thêm mới trong nodejs.
+        + 2. Ấn nút thêm mới -> đẩy dữ liệu ra, và nhận được dữ liệu thì insert vào CSDL.
+        + 3. Insert CSDL
