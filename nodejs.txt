@@ -1,3 +1,71 @@
+149. Giới thiệu phần Nodejs kết hợp với Reactjs.
+  - 1. Sử dụng ReactJS kết hợp với Firebase
+    + Ưu điểm:
+      - Không cần API (NODE js, php...) để thao tác dữ liệu.
+      - Firebase tự trả về json và reactjs nhận trực tiếp.
+    + Nhược điểm:
+      - Chỉ miễn phí một số ít dung lượng, nếu làm thật thì sẽ phải trả phí.
+      - Không phân tách rõ tầng API và tầng Front End -> một người làm tất (vừa thao tác ReactJS, vừa kết nối luôn)
+      - Dự án lớn nên phân tách rõ người chuyên xử lý backend và người chuyên xử lý FrontEnd (Reactjs)
+  - 2. Sử dụng ReactJS làm FrontEnd, NodeJS xử lý phần dữ liệu + MongoDB, PostgresSQL, MySQL...
+    + Ưu điểm: 
+      - Tự do triển khai.
+      - Phân tách rõ tầng Frontend và Backend riêng biệt.
+      - Reactjs gửi thông tin về Nodejs đóng vai trò API xử lý các thao tác dữ liệu.
+      - Ứng dụng lớn, phân tách nhiều tầng -> Cơ sở dữ liệu có mối quan hệ phức tạp, dữ liệu tầm lớn.
+    + Nhược điểm:
+      - Với các ứng dụng nhỏ thì không phù hợp.
+  - 3. How 
+    + Thực hiện được thao tác thêm, sửa, xóa bằng react + nodejs + mongodb
+      - Bước 1: Tạo cơ sở dữ liệu (mongodb, postgresql)
+      - Bước 2: Kết nối với Nodejs
+      - Bước 3: Xử lý logic trên Nodejs (thêm, sửa, xóa bằng Nodejs)
+      - Bước 4:
+        + Tạo project reactjs
+        + Lấy dữ liệu từ Nodejs -> kiểu json
+      - Bước 5:
+        + Demo các thao tác thêm sửa xóa bằng reactjs.
+        + axios -> cho phép hoạt động như ajax gửi và nhận dữ liệu (Kết nối giữa reactjs và nodejs)
+
+150. Cài đặt cơ sở dữ liệu PostgreSQL version 10.
+151. Thực hành tạo cơ sở dữ liệu - Tạo bảng - Insert dữ liệu với PostgreSQL
+152. Cài đặt các phần mềm cần sử dụng - Khởi tạo project
+  - Cài đặt
+    1. Tạo project Node js
+    2. Nodejs
+      - npm install express --save
+      - express tenproject -e
+        + nếu xảy ra lỗi: 
+          - Bước 1: Open PowerShell as Adminstrator.
+          - Bước 2: Run (Set-ExecutionPolicy -ExecutionPolicy Unrestricted)
+      - Vào trong folder vừa mới tạo -> npm install
+    3. Cách kết nối dữ liệu và lấy dữ liệu
+      - Cài plugin kết nối nodejs với prosgreSQL
+    4. 156 - Lấy dữ liệu từ postgreSQL thoong qua Nodejs
+      - Tạo đường dẫn API lấy dữ liệu.
+      - Kết nối và lấy dữ liệu.
+      - localhost:4000/getdata01.
+    5. 157 - Reactjs trên frontend lấy dữ liệu này đổ ra giao diện thế nào.
+      - Tạo giao diện frontend (html) -> Component hóa thành reactjs (reactjs)
+      - Lấy dữ liệu đổ ra Frontend
+    6. Reactjs
+      - cài create react app -> npm install -g create-react-app -> cài đặt công cụ tạo project mẫu của react
+      - npx create-react-app product_frontend
+        + tạo folder mới là product_frontend
+        + Tạo luôn các package tải luôn về và chỉ việc chạy.
+  - Ứng dụng fullstack với nodejs và reactjs.
+    + nodejs = API tương tác với dữ liệu.
+      - Trả về cho reactjs sử dụng
+    + reactjs = frontend, gửi dữ liệu cho nodejs xử lý.
+      - Nhận dữ liệu nodejs xử lý xong rồi trả về cho reactjs.
+154. Đổi cổng kết nối của nodejs
+157. Javascript fullstack
+  - Backend -> nodejs
+  - Frontend -> reactjs
+  - Nắm vững được 2 câu hỏi
+    + 1. Nodejs gửi dữ liệu thì Reactjs nhận được thế nào.
+    + 2. Reactjs gửi dữ liệu thì Nodejs nhận được thế nào.
+158. Tạo giao diện frontend sử dụng bootstrap 4.
 160. Reactjs trên frontend đổ ra giao diện thế nào.
   - Tạo giao diện frontend.
   - Lấy dữ liệu đỗ ra frontend.
@@ -28,3 +96,22 @@
         + 1. Tạo giao diện thêm mới trong nodejs.
         + 2. Ấn nút thêm mới -> đẩy dữ liệu ra, và nhận được dữ liệu thì insert vào CSDL.
         + 3. Insert CSDL
+165. Hoàn thiện thao tác thêm dữ liệu trong Reactjs
+166. Tạo form nhập liệu với Reactjs.
+  - Tạo một component để thêm mới.
+  - 167. Ấn nút thêm mới mà người dùng điền vào trong form.
+    + Cách 1: Dùng Reactjs thuần.
+    + Cách 2: Dùng redux.
+  - 168. Gửi qua nodejs sử dụng axios
+    + gửi 3 giá trị: product name, product price, image.
+    + axios.post()
+  - 169. Setup proxy cho kết nối riêng của backend và frontend.
+  - 170. Tự động update nội dung khi thêm mới - phần 1
+  - 171. Tự động update nội dung khi thêm mới - phần 2
+    + Để khi thêm mới thì tự động cập nhật
+      - Gọi lại API để load dữ liệu và in lại lần nữa -> API phải update liên tục.
+      - Đẩy dữ liệu đó vào trong state -> để ko cần load lại server.
+        + Bước 1: click vào thêm mới, thì đẩy dữ liệu mới vào state.
+172. Cách quản lý code bằng github - download và chạy file project.
+  - Cách chạy code, lưu code, upload code.
+    + 1. Tạo repository github
