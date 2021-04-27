@@ -35,7 +35,7 @@ exports.userSignupValidator = (req, res, next) => {
     .isLength({
         min: 4,
         max: 2000
-    })
+    });
 
     // check for passwords
     req.check("password", "Password is required").notEmpty();
@@ -55,4 +55,4 @@ exports.userSignupValidator = (req, res, next) => {
     //proceed to next middleware
     next();
 
-}
+};
