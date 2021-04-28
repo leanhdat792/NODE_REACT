@@ -34,28 +34,31 @@ const userSchema = new mongoose.Schema({
 
 // virtual field
 userSchema.virtual('password')
-.set(function(password){
-    // create temporary variable call _password
-    this._password = password;
-    // generate a timestamp
-    this.salt = uuidv1();
-    // encryptPassword
-    this.hashed_password = this.encryptPassword(password);
+    .set(function (password) {
+        // create temporary variable call _password
+        this._password = password;
+        // generate a timestamp
+        this.salt = uuidv1();
+        // encryptPassword
+        this.hashed_password = this.encryptPassword(password);
 
 
-})
-.get(function(){
-    return this._password;
-});
+    })
+    .get(function () {
+        return this._password;
+    });
 
 // methods
 userSchema.methods = {
-    encryptPassword: function(password) {
-        if(!password) return "";
-        try{
+    authenticate: function (plainText) {
+        return this.encryptPassword(plainText) === this.hashed_password
+    },
+    encryptPassword: function (password) {
+        if (!password) return "";
+        try {
             return crypto.createHmac('sha256', this.salt)
-            .update(password)
-            .digest('hex');
+                .update(password)
+                .digest('hex');
         } catch (err) {
 
         }
