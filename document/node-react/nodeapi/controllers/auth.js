@@ -7,21 +7,21 @@ exports.signup = async (req, res) => {
     const userExist = await User.findOne({ email: req.body.email })
     if (userExist) return res.status(403).json({
         error: "Email is taken!"
-    })
-    const user = await new User(req.body)
-    await user.save()
+    });
+    const user = await new User(req.body);
+    await user.save();
     res.status(200).json({ message: "Signup success! Please login." });
-}
+};
 
 exports.signin = (req, res) => {
     // find the user based on email
-    const { email, password } = req.body
+    const { email, password } = req.body;
     User.findOne({ email }, (err, user) => {
         // if err or no user
         if (err || !user) {
             return res.status(401).json({
                 error: "User with that email does not exist. Please signin."
-            })
+            });
         }
         // if user is found make sure the email and password match
         // create authentication method in model and use here
@@ -37,13 +37,13 @@ exports.signin = (req, res) => {
         // return response with user and token to frontend client
         const { _id, name, email } = user;
         return res.json({ token, user: { _id, email, name } });
-    })
-}
+    });
+};
 
 exports.signout = (req, res) => {
     res.clearCookie("t");
     return res.json({ message: "Signout success!" });
-}
+};
 
 exports.requireSignin = expressJwt({
     // if the token is valid, express jwt appends the verified users id
@@ -51,4 +51,4 @@ exports.requireSignin = expressJwt({
     algorithms: ['HS256'],
     secret: process.env.JWT_SECRET,
     userProperty: "auth"
-})
+});
