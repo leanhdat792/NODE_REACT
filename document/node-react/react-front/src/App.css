@@ -7,6 +7,5 @@
 }
 
 .nav-tabs .nav-link.is-active{
-    color: red;
     background-color: #cccccc;
 }
