@@ -30,7 +30,7 @@ class Profile extends Component {
         this.init(userId);
     }
 
-    componentDidUpdate(props) {
+    componentWillReceiveProps(props) {
         const userId = props.match.params.userId;
         this.init(userId);
     }
