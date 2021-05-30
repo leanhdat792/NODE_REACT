@@ -26,7 +26,13 @@ class Users extends Component {
             {users.map((user, i) => (
                 <div className="col-md-3 mb-4" key={i}>
                     <div className="card">
-                        <img className="card-img-top" src={DefaultProfile} alt={user.name} />
+                        <img 
+                            style={{height: "200px", width:'auto', 'object-fit':'cover'}}
+                            className="img-thumbnail"
+                            src={`http://localhost:8080/user/photo/${user._id}`}
+                            onError = {i => (i.target.src = `${DefaultProfile}`)}
+                            alt={user.name} 
+                        />
                         <div className="card-body">
                             <h4 className="card-title">{user.name}</h4>
                             <p className="card-text">{user.email}</p>
