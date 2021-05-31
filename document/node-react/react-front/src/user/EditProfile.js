@@ -26,10 +26,10 @@ class EditProfile extends Component {
             if (data.error) {
                 this.setState({ redirectToProfile: true });
             } else {
-                this.setState({ 
-                    id: data._id, 
-                    name: data.name, 
-                    email: data.email, 
+                this.setState({
+                    id: data._id,
+                    name: data.name,
+                    email: data.email,
                     error: '',
                     about: data.about
                 });
@@ -67,7 +67,7 @@ class EditProfile extends Component {
     }
 
     handleChange = name => event => {
-        this.setState({error: ""});
+        this.setState({ error: "" });
         const value = name === 'photo' ? event.target.files[0] : event.target.value;
         const fileSize = name === 'photo' ? event.target.files[0].size : 0;
         this.userData.set(name, value);
@@ -76,7 +76,7 @@ class EditProfile extends Component {
 
     clickSubmit = event => {
         event.preventDefault();
-        this.setState({loading: true});
+        this.setState({ loading: true });
         if (this.isValid()) {
             const userId = this.props.match.params.userId;
             const token = isAuthenticated().token;
@@ -148,19 +148,24 @@ class EditProfile extends Component {
         if (redirectToProfile) {
             return <Redirect to={`/user/${id}`} />
         }
-        const photoUrl = id ? `http://localhost:8080/user/photo/${id}?${new Date().getTime()}`: DefaultProfile;
+        const photoUrl = id ? `http://localhost:8080/user/photo/${id}?${new Date().getTime()}` : DefaultProfile;
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Edit Profile</h2>
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>{error}</div>
-                {loading ? <div className="jumbotron text-center">
-                    <h2>Loading...</h2>
-                </div> : ""}
-                <img 
-                    style={{height: "200px", width:'auto'}}
+                {loading ? (
+                    <div className="jumbotron text-center">
+                        <h2>Loading...</h2>
+                    </div>
+                ) : (
+                    ""
+                )}
+                <img
+                    style={{ height: "200px", width: 'auto' }}
                     className="img-thumbnail"
-                    src={photoUrl} 
-                    alt={name} 
+                    onError={i => (i.target.src = `${DefaultProfile}`)}
+                    src={photoUrl}
+                    alt={name}
                 />
                 {this.signupForm(name, email, password)}
             </div>

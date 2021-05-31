@@ -5,29 +5,31 @@ import { read } from './apiUser';
 import DefaultProfile from '../images/avatar.png';
 import DeleteUser from './DeleteUser';
 import FollowProfileButton from "./FollowProfileButton";
+import ProfileTabs from './ProfileTabs';
 
 class Profile extends Component {
     constructor() {
         super();
         this.state = {
-            user: { following: [], follower: [] },
+            user: { following: [], followers: [] },
             redirectToSignin: false,
             following: false,
-            error: ''
+            error: '',
+            about: ''
         }
     }
 
     clickFollowButton = callApi => {
-        const userId = this.props.match.params.userId;
+        const userId = isAuthenticated().user._id;
         const token = isAuthenticated().token;
         callApi(userId, token, this.state.user._id)
-        .then(data => {
-            if(data.error){
-                this.setState({error: data.error});
-            } else {
-                this.setState({user: data, following: !this.state.following});
-            }
-        })
+            .then(data => {
+                if (data.error) {
+                    this.setState({ error: data.error });
+                } else {
+                    this.setState({ user: data, following: !this.state.following });
+                }
+            })
     }
 
     // check follow
@@ -64,19 +66,20 @@ class Profile extends Component {
 
     render() {
         const { redirectToSignin, user } = this.state;
+        console.log(user);
         if (redirectToSignin) return <Redirect to="/signin" />
-        const photoUrl = user._id ? `http://localhost:8080/user/photo/${user._id}?${new Date().getTime()}`: DefaultProfile;
+        const photoUrl = user._id ? `http://localhost:8080/user/photo/${user._id}?${new Date().getTime()}` : DefaultProfile;
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Profile</h2>
                 <div className="row">
                     <div className="col-md-6">
-                        <img 
-                            style={{height: "200px", width:'auto'}}
+                        <img
+                            style={{ height: "200px", width: 'auto' }}
                             className="img-thumbnail"
-                            onError = {i => (i.target.src = `${DefaultProfile}`)}
-                            src={photoUrl} 
-                            alt={user.name} 
+                            onError={i => (i.target.src = `${DefaultProfile}`)}
+                            src={photoUrl}
+                            alt={user.name}
                         />
                     </div>
                     <div className="col-md-6">
@@ -91,7 +94,7 @@ class Profile extends Component {
                                 <DeleteUser userId={user._id} />
                             </div>
                         ) : (
-                            <FollowProfileButton 
+                            <FollowProfileButton
                                 following={this.state.following}
                                 onButtonClick={this.clickFollowButton}
                             />
@@ -102,6 +105,8 @@ class Profile extends Component {
                     <div className="col md-12 mt-5 mb-5">
                         <p className="lead">{user.about}</p>
                     </div>
+                    <hr />
+                    <ProfileTabs followers={user.followers} following={user.following} />
                 </div>
             </div>
         )
