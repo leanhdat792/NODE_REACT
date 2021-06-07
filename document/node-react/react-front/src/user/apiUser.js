@@ -1,5 +1,5 @@
 export const read = (userId, token) => {
-    return fetch(`http://localhost:8080/user/${userId}`, {
+    return fetch(`http://localhost:8080/api/user/${userId}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -13,7 +13,7 @@ export const read = (userId, token) => {
 
 export const update = (userId, token, user) => {
     console.log("USER DATA UPDATE: ", user);
-    return fetch(`http://localhost:8080/user/${userId}`, {
+    return fetch(`http://localhost:8080/api/user/${userId}`, {
         method: "PUT",
         headers: {
             Accept: "application/json",
@@ -26,7 +26,7 @@ export const update = (userId, token, user) => {
 };
 
 export const list = () => {
-    return fetch(`http://localhost:8080/users`, {
+    return fetch(`http://localhost:8080/api/users`, {
         method: "GET"
     }).then(response => {
         return response.json();
@@ -34,7 +34,7 @@ export const list = () => {
 };
 
 export const remove = (userId, token) => {
-    return fetch(`http://localhost:8080/user/${userId}`, {
+    return fetch(`http://localhost:8080/api/user/${userId}`, {
         method: "DELETE",
         headers: {
             Accept: "application/json",
@@ -58,7 +58,7 @@ export const updateUser = (user, next) => {
 };
 
 export const follow = (userId, token, followId) => {
-    return fetch(`http://localhost:8080/user/follow`, {
+    return fetch(`http://localhost:8080/api/user/follow`, {
         method: "PUT",
         headers: {
             Accept: "application/json",
@@ -72,7 +72,7 @@ export const follow = (userId, token, followId) => {
 };
 
 export const unfollow = (userId, token, unfollowId) => {
-    return fetch(`http://localhost:8080/user/unfollow`, {
+    return fetch(`http://localhost:8080/api/user/unfollow`, {
         method: "PUT",
         headers: {
             Accept: "application/json",
@@ -86,7 +86,7 @@ export const unfollow = (userId, token, unfollowId) => {
 };
 
 export const findPeople = (userId, token) => {
-    return fetch(`http://localhost:8080/user/findpeople/${userId}`, {
+    return fetch(`http://localhost:8080/api/user/findpeople/${userId}`, {
         method: "GET",
         headers: {
             Accept: "application/json",

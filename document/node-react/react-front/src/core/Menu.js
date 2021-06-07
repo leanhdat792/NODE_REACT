@@ -18,6 +18,9 @@ const Menu = ({ history }) => (
                 <li className="nav-item">
                     <Link className={`nav-link ${isActive(history, '/users')}`} to="/users">Users</Link>
                 </li>
+                <li className="nav-item">
+                    <Link to={`/post/create`} className={`nav-link ${isActive(history, `/post/create`)}`} style={{ color: "#ffffff" }}>Create Post</Link>
+                </li>
                 {!isAuthenticated() && (
                     <>
                         <li className="nav-item">
@@ -40,6 +43,16 @@ const Menu = ({ history }) => (
                             <span className="nav-link" style={{ color: "#ffffff", cursor: "pointer" }} onClick={() => signout(() => history.push('/'))}>Sign Out</span>
                         </li>
                     </React.Fragment>
+                )}
+                {isAuthenticated() && isAuthenticated().user.role === "admin" && (
+                    <li className="nav-item">
+                        <Link
+                            to={`/admin`}
+                            className={`nav-link ${isActive(history, `/admin`)}`}
+                        >
+                            Admin
+                        </Link>
+                    </li>
                 )}
             </ul>
 

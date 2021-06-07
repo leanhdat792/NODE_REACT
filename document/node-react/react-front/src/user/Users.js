@@ -21,28 +21,38 @@ class Users extends Component {
         })
     }
 
-    renderUsers = (users) => (
-        <div className="row">
-            {users.map((user, i) => (
-                <div className="col-md-3 mb-4" key={i}>
-                    <div className="card">
-                        <img
-                            style={{ height: "200px", width: 'auto', 'objectFit': 'cover' }}
-                            className="img-thumbnail"
-                            src={`http://localhost:8080/user/photo/${user._id}`}
-                            onError={i => (i.target.src = `${DefaultProfile}`)}
-                            alt={user.name}
-                        />
-                        <div className="card-body">
-                            <h4 className="card-title">{user.name}</h4>
-                            <p className="card-text">{user.email}</p>
-                            <Link to={`/user/${user._id}`} className="btn btn-primary">View profile</Link>
+    renderUsers = (users) => {
+        const isColumn = () => {
+            const path = window.location.pathname;
+            if (path === '/admin') {
+                return "4";
+            } else {
+                return "3";
+            }
+        }
+        return (
+            <div className="row">
+                {users.map((user, i) => (
+                    <div className={`col-md-${isColumn()} mb-4`} key={i}>
+                        <div className="card">
+                            <img
+                                style={{ height: "200px", width: 'auto', 'objectFit': 'cover' }}
+                                className="img-thumbnail"
+                                src={`http://localhost:8080/api/user/photo/${user._id}`}
+                                onError={i => (i.target.src = `${DefaultProfile}`)}
+                                alt={user.name}
+                            />
+                            <div className="card-body">
+                                <h4 className="card-title">{user.name}</h4>
+                                <p className="card-text">{user.email}</p>
+                                <Link to={`/user/${user._id}`} className="btn btn-primary">View profile</Link>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
-        </div>
-    );
+                ))}
+            </div>
+        );
+    };
 
     render() {
         const { users } = this.state;

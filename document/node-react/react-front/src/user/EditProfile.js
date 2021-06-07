@@ -80,15 +80,22 @@ class EditProfile extends Component {
         if (this.isValid()) {
             const userId = this.props.match.params.userId;
             const token = isAuthenticated().token;
-            console.log('User Data 1: ' + JSON.stringify(this.userData));
             update(userId, token, this.userData).then(data => {
-                if (data.error) this.setState({ error: data.error });
-                else
+                if (data.error) {
+                    this.setState({ error: data.error });
+                    // if admin only redirect
+                } else if (isAuthenticated().user.role === "admin") {
+                    this.setState({
+                        redirectToProfile: true
+                    });
+                } else {
+                    // if same user update localstorage and redirect
                     updateUser(data, () => {
                         this.setState({
                             redirectToProfile: true
-                        })
+                        });
                     });
+                }
             });
         }
     }
@@ -144,7 +151,7 @@ class EditProfile extends Component {
     )
 
     render() {
-        const { id, name, email, password, redirectToProfile, error, loading } = this.state;
+        const { id, name, email, password, redirectToProfile, error, loading, about } = this.state;
         if (redirectToProfile) {
             return <Redirect to={`/user/${id}`} />
         }
@@ -167,7 +174,8 @@ class EditProfile extends Component {
                     src={photoUrl}
                     alt={name}
                 />
-                {this.signupForm(name, email, password)}
+                {isAuthenticated().user.role === "admin" && this.signupForm(name, email, password, about)}
+                {isAuthenticated().user._id === id && this.signupForm(name, email, password, about)}
             </div>
         )
     }
